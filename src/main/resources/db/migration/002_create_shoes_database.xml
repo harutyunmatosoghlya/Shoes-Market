@@ -1,0 +1,40 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="002_create_shoes_database" author="mharutyun">
+        <createTable tableName="shoes">
+            <column name="id" autoIncrement="true" type="INT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="size" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="photo" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="model" type="enum('CLASSIC', 'SPORTY', 'SEMI-SPORTY')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="text">
+                <constraints nullable="true"/>
+            </column>
+            <column name="category" type="enum('MEN', 'WOMEN', 'CHILDREN')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="brend" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="qty" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rating" type="double">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

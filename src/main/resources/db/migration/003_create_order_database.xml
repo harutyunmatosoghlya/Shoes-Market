@@ -1,0 +1,46 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="003_create_order_database" author="mharutyun">
+        <createTable tableName="order">
+            <column name="id" autoIncrement="true" type="INT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="shoes_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="accepted_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="approxmately_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="arrived_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="taken_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="enum('ACCEPTED', 'CANCELED', 'COMING', 'TAKEN')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total_price" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="adress" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="order" baseColumnNames="user_id" constraintName="fk_order_user"
+                                 referencedTableName="user"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="order" baseColumnNames="shoes_id" constraintName="fk_order_shoes"
+                                 referencedTableName="shoes"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

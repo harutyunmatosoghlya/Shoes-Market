@@ -1,0 +1,34 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="001_create_comment_database" author="mharutyun">
+        <createTable tableName="comment">
+            <column name="id" autoIncrement="true" type="INT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="shoes_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comment" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="enum('HIDDEN', 'PUBLIC')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="comment" baseColumnNames="user_id" constraintName="fk_comment_user"
+                                 referencedTableName="user"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="comment" baseColumnNames="shoes_id" constraintName="fk_comment_shoes"
+                                 referencedTableName="shoes"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
