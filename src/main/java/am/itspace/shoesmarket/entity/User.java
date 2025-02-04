@@ -25,7 +25,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Gender gender;
     @Enumerated(EnumType.STRING)
-    private role role;
+    private Role role;
     private String photo;
 
 
