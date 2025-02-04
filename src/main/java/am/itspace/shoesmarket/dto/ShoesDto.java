@@ -18,7 +18,7 @@ public class ShoesDto {
     private Model model;
     private String description;
     private Category category;
-    private String brend;
+    private String brand;
     private int qty;
     private double price;
     private double rating;

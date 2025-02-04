@@ -16,8 +16,6 @@ import java.util.Date;
 @Builder
 
 public class SaveOrderRequest {
-
-
     private User user;
     private Shoes shoes;
     private Date acceptedDate;

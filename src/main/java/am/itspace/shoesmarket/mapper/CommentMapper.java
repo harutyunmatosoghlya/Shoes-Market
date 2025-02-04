@@ -11,7 +11,6 @@ import java.util.List;
 
 public interface CommentMapper {
 
-
     CommentDto toCommentDto(Comment comment);
 
     List<CommentDto> toCommentDto(List<Comment> comment);

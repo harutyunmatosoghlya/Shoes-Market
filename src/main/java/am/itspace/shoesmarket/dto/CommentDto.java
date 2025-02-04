@@ -20,5 +20,4 @@ public class CommentDto {
     private Shoes shoes;
     private String comment;
     private Date time;
-
 }

@@ -13,8 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class SaveBasketRequest {
 
-
-    private  User user;
+    private User user;
     private Shoes shoes;
     private double totalPrice;
 }

@@ -17,11 +17,5 @@ public class SaveUserRequest {
     private String email;
     private String password;
     private Gender gender;
-    private Role role;
-
-    public SaveUserRequest() {
-        this.role = Role.USER;
-
-
-    }
+    private Role role = Role.USER;
 }

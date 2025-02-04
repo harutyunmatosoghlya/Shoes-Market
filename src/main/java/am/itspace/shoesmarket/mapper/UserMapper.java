@@ -15,7 +15,4 @@ public interface UserMapper {
     List<UserDto> toUserDto(List<User> users);
 
     User toEntity(SaveUserRequest userRequest);
-
-
-
 }

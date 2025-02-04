@@ -22,6 +22,4 @@ public class SaveShoesRequest {
     private int qty;
     private double price;
     private double rating;
-
-
 }

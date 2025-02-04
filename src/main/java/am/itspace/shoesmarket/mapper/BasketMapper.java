@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface BasketMapper {
 
-  SaveBasketRequest toBasketDto (Basket basket);
+    SaveBasketRequest toBasketDto(Basket basket);
 
     List<SaveBasketRequest> toBasketDto(List<Basket> basket);
 
