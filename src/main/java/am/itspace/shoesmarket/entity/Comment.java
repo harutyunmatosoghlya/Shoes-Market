@@ -19,9 +19,10 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private User user_id;
     @ManyToOne
-    private Shoes shoes_id;
+    private User user;
+    @ManyToOne
+    private Shoes shoes;
     private String comment;
     @Enumerated(EnumType.STRING)
     private CommentType type;

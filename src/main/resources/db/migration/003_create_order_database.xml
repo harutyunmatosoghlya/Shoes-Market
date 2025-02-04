@@ -21,10 +21,10 @@
                 <constraints nullable="false"/>
             </column>
             <column name="arrived_date" type="datetime">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="taken_date" type="datetime">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="type" type="enum('ACCEPTED', 'CANCELED', 'COMING', 'TAKEN')">
                 <constraints nullable="false"/>
