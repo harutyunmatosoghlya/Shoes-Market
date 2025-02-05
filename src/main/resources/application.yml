@@ -14,4 +14,8 @@ logging:
   level:
     root: INFO
   file:
-    name: C:\\Users\\Hend\\IdeaProjects\\Spring\\Shoes-Market\\log\\application.log
+    name: log\\application.log
+
+jwt:
+  secret: YXNkZmYkIyNzZFNEU0RBQVNERksjQEBkc2ZqZGZrZHNqQEAjZHNmZ2ZnZmdeXiYmWipeJSQkI2RzZHMkIyVzZDQ1MDk5KUkjJCg5V0ZTSUo=
+  expiration: 600000
