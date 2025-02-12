@@ -1,6 +1,5 @@
 package am.itspace.shoesmarket.security;
 
-
 import am.itspace.shoesmarket.entity.User;
 import org.springframework.security.core.authority.AuthorityUtils;
 

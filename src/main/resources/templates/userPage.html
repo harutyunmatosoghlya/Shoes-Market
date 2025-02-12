@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Page</title>
+</head>
+<body>
+<h1>User Profile</h1>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <td th:text="${user.name}"></td>
+    </tr>
+    <tr>
+        <th>Surname</th>
+        <td th:text="${user.surname}"></td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td th:text="${user.email}"></td>
+    </tr>
+    <tr>
+        <th>Photo</th>
+        <td>
+            <img th:if="${user.photo != null}" th:src="@{/getImage(imageName=${user.photo})}" width="100">
+        </td>
+    </tr>
+</table>
+
+<a href="/">Back to Home</a>
+</body>
+</html>

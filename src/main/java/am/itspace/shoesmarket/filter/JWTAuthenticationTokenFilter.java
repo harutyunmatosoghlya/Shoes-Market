@@ -1,11 +1,14 @@
 package am.itspace.shoesmarket.filter;
 
-import am.itspace.shoesmarket.util.JwtTokenUtil;
+
+import am.itspace.shoesmarket.util.JwtUtil;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,41 +20,48 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
+@Slf4j
 @RequiredArgsConstructor
 public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
 
-    private final JwtTokenUtil tokenUtil;
+    private final JwtUtil jwtUtil;
 
     private final UserDetailsService userDetailsService;
 
 
     @Override
-    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+            throws ServletException, IOException {
 
-        String requestHeader = httpServletRequest.getHeader("Authorization");
+        final String requestTokenHeader = request.getHeader("Authorization");
 
         String username = null;
-        String authToken = null;
-        if (requestHeader != null && requestHeader.startsWith("Bearer ")) {
-            authToken = requestHeader.substring(7);
+        String jwtToken = null;
+
+        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
+            jwtToken = requestTokenHeader.substring(7);
+
             try {
-                username = tokenUtil.getUsernameFromToken(authToken);
-            } catch (Exception e) {
-               e.printStackTrace();
+                username = jwtUtil.getUsernameFromToken(jwtToken);
+                log.info("JWT Token username: {}", username);
+            } catch (IllegalArgumentException e) {
+                log.error("Unable to get JWT Token: {}", e.getMessage());
+            } catch (ExpiredJwtException e) {
+                log.warn("JWT Token has expired");
             }
         }
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
+            log.info("Valid JWT Token for user: {}", username);
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-
-            if (tokenUtil.validateToken(authToken, userDetails.getUsername())) {
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+            if (jwtUtil.validateToken(jwtToken, userDetails)) {
+                UsernamePasswordAuthenticationToken authToken =
+                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authToken);
+            } else {
+                log.warn("Invalid JWT Token for user: {}", username);
             }
         }
-
-        filterChain.doFilter(httpServletRequest, httpServletResponse);
-
+        chain.doFilter(request, response);
     }
 }
