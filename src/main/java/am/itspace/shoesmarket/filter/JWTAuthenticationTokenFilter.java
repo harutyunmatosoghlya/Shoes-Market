@@ -24,7 +24,6 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
 
     private final UserDetailsService userDetailsService;
 
-
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
 
@@ -37,7 +36,7 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
             try {
                 username = tokenUtil.getUsernameFromToken(authToken);
             } catch (Exception e) {
-               e.printStackTrace();
+                e.printStackTrace();
             }
         }
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
@@ -50,8 +49,6 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
-
         filterChain.doFilter(httpServletRequest, httpServletResponse);
-
     }
 }

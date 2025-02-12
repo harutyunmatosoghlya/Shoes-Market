@@ -7,13 +7,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class SaveBasketRequest {
-
     private User user;
-    private Shoes shoes;
+    private List<Shoes> shoes;
     private double totalPrice;
 }

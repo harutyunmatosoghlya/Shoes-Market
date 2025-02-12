@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -15,16 +15,14 @@ import java.sql.Date;
 @Builder
 @Table(name = "comment")
 public class Comment {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     @ManyToOne
     private User user;
     @ManyToOne
     private Shoes shoes;
     private String comment;
     @Enumerated(EnumType.STRING)
-    private CommentType type;
-    private Date time;
+    private LocalDateTime time;
 }

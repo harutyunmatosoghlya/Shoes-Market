@@ -7,7 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -18,17 +20,16 @@ import java.util.Date;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     @ManyToOne
     private User user;
-    @ManyToOne
-    private Shoes shoes;
+    private List<Shoes> shoes;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date acceptedDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date approxmatelyDate;
-    private Date arrivedDate;
-    private Date takenDate;
+    private Date approximatelyDate;
+    private LocalDateTime arrivedDate;
+    private LocalDateTime takenDate;
     @Enumerated(EnumType.STRING)
     private OrderType type;
     private double totalPrice;

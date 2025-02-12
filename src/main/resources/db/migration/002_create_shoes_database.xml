@@ -3,13 +3,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <changeSet id="002_create_shoes_database" author="mharutyun">
+    <changeSet id="002_create_shoes_database" author="henrik srapyan">
         <createTable tableName="shoes">
-            <column name="id" autoIncrement="true" type="INT">
+            <column name="id" autoIncrement="true" type="BIGINT">
                 <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="size" type="int">
-                <constraints nullable="false"/>
             </column>
             <column name="photo" type="varchar(255)">
                 <constraints nullable="false"/>
@@ -23,10 +20,10 @@
             <column name="category" type="enum('MEN', 'WOMEN', 'CHILDREN')">
                 <constraints nullable="false"/>
             </column>
-            <column name="brend" type="varchar(255)">
+            <column name="brand" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="qty" type="int">
+            <column name="qty" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="price" type="double">
@@ -35,6 +32,18 @@
             <column name="rating" type="double">
                 <constraints nullable="false"/>
             </column>
+            <column name="user_id" type="int">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
+        <addForeignKeyConstraint baseTableName="shoes" baseColumnNames="user_id" constraintName="fk_shoes_user"
+                                 referencedTableName="user"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="shoes" baseColumnNames="basket_id" constraintName="fk_shoes_basket"
+                                 referencedTableName="basket"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="shoes" baseColumnNames="order_id" constraintName="fk_shoes_order"
+                                 referencedTableName="order"
+                                 referencedColumnNames="id"/>
     </changeSet>
 </databaseChangeLog>

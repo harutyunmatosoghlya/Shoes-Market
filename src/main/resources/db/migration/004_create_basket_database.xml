@@ -3,15 +3,15 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <changeSet id="001_create_basket_database" author="mharutyun">
+    <changeSet id="001_create_basket_database" author="henrik srapyan">
         <createTable tableName="basket">
-            <column name="id" autoIncrement="true" type="INT">
+            <column name="id" autoIncrement="true" type="BIGINT">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="user_id" type="int">
                 <constraints nullable="false"/>
             </column>
-            <column name="shoes_id" type="int">
+            <column name="qty" type="int">
                 <constraints nullable="false"/>
             </column>
             <column name="total_price" type="double">
@@ -20,9 +20,6 @@
         </createTable>
         <addForeignKeyConstraint baseTableName="basket" baseColumnNames="user_id" constraintName="fk_basket_user"
                                  referencedTableName="user"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="basket" baseColumnNames="shoes_id" constraintName="fk_basket_shoes"
-                                 referencedTableName="shoes"
                                  referencedColumnNames="id"/>
     </changeSet>
 </databaseChangeLog>

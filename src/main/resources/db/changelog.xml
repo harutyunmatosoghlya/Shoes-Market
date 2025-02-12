@@ -6,4 +6,5 @@
     <include file="db/migration/003_create_order_database.xml"/>
     <include file="db/migration/004_create_basket_database.xml"/>
     <include file="db/migration/005_create_comment_database.xml"/>
+    <include file="db/migration/006_create_size_database.xml"/>
 </databaseChangeLog>

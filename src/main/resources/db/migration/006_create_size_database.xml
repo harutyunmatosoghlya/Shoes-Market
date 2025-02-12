@@ -3,28 +3,22 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <changeSet id="001_create_comment_database" author="henrik srapyan">
-        <createTable tableName="comment">
+    <changeSet id="006_create_size_database" author="henrik srapyan">
+        <createTable tableName="size">
             <column name="id" autoIncrement="true" type="BIGINT">
                 <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="user_id" type="int">
-                <constraints nullable="false"/>
             </column>
             <column name="shoes_id" type="int">
                 <constraints nullable="false"/>
             </column>
-            <column name="comment" type="text">
+            <column name="size" type="int">
                 <constraints nullable="false"/>
             </column>
-            <column name="time" type="datetime">
+            <column name="qty" type="int">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addForeignKeyConstraint baseTableName="comment" baseColumnNames="user_id" constraintName="fk_comment_user"
-                                 referencedTableName="user"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="comment" baseColumnNames="shoes_id" constraintName="fk_comment_shoes"
+        <addForeignKeyConstraint baseTableName="size" baseColumnNames="shoes_id" constraintName="fk_size_shoes"
                                  referencedTableName="shoes"
                                  referencedColumnNames="id"/>
     </changeSet>
