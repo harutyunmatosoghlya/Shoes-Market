@@ -17,9 +17,10 @@ import java.util.List;
 public class Basket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
     @ManyToOne
     private User user;
+    @OneToMany
     private List<Shoes> shoes;
     private int qty;
     private double totalPrice;

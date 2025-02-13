@@ -22,7 +22,7 @@ public class SaveShoesRequest {
     private String description;
     private Category category;
     private String brand;
-    private long qty;
+    private int qty;
     private double price;
     private double rating;
     private User user;

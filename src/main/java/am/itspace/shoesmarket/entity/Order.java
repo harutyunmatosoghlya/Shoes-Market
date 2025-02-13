@@ -20,9 +20,10 @@ import java.util.List;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
     @ManyToOne
     private User user;
+    @OneToMany
     private List<Shoes> shoes;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date acceptedDate;

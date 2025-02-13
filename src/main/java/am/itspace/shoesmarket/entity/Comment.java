@@ -17,12 +17,11 @@ import java.time.LocalDateTime;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
     @ManyToOne
     private User user;
     @ManyToOne
     private Shoes shoes;
     private String comment;
-    @Enumerated(EnumType.STRING)
     private LocalDateTime time;
 }

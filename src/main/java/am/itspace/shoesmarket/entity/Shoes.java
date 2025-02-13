@@ -14,7 +14,8 @@ import java.util.List;
 public class Shoes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
+    @OneToMany
     private List<Size> sizes;
     private String photo;
     @Enumerated(EnumType.STRING)
@@ -23,7 +24,7 @@ public class Shoes {
     @Enumerated(EnumType.STRING)
     private Category category;
     private String brand;
-    private long qty;
+    private int qty;
     private double price;
     private double rating;
     @ManyToOne

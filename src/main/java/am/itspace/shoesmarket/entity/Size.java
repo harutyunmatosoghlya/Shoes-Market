@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class Size {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
     @ManyToOne
     private Shoes shoes;
     private int size;

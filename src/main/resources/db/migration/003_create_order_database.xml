@@ -5,7 +5,7 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet id="003_create_order_database" author="henrik srapyan">
         <createTable tableName="order">
-            <column name="id" autoIncrement="true" type="BIGINT">
+            <column name="id" autoIncrement="true" type="int">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="user_id" type="int">
