@@ -2,5 +2,5 @@ package am.itspace.shoesmarket.entity;
 
 public enum Role {
 
-    USER, ADMIN, SALER
+    USER, ADMIN, SELLER
 }

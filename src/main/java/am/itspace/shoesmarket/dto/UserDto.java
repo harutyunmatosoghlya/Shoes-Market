@@ -1,5 +1,6 @@
 package am.itspace.shoesmarket.dto;
 
+import am.itspace.shoesmarket.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,4 +16,5 @@ public class UserDto {
     private String email;
     private String photo;
     private String token;
+    private Role role = Role.USER;
 }
