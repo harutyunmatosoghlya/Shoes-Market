@@ -7,17 +7,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 public class CommentDto {
-
     private User user;
     private Shoes shoes;
     private String comment;
-    private Date time;
+    private LocalDateTime time;
 }

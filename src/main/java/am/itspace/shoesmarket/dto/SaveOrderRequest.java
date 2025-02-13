@@ -9,17 +9,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 public class SaveOrderRequest {
     private User user;
-    private Shoes shoes;
+    private List<Shoes> shoes;
     private Date acceptedDate;
-    private Date approxmatelyDate;
+    private Date approximatelyDate;
     private OrderType type;
     private double totalPrice;
     private String address;

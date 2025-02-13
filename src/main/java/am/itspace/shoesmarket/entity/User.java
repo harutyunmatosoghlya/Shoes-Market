@@ -6,15 +6,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
 @Table(name = "user")
-
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -28,4 +28,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
     private String photo;
+    @OneToMany
+    private List<Shoes> shoes;
 }
