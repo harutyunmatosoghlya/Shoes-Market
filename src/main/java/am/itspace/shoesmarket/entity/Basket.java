@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,7 +20,8 @@ public class Basket {
     private int id;
     @ManyToOne
     private User user;
-    @ManyToOne
-    private Shoes shoes;
+    @OneToMany
+    private List<Shoes> shoes;
+    private int qty;
     private double totalPrice;
 }

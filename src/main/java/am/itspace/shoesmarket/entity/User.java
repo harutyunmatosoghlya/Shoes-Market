@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,4 +28,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
     private String photo;
+    @OneToMany
+    private List<Shoes> shoes;
 }

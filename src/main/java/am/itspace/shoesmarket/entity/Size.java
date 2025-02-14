@@ -6,22 +6,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @Builder
-@Table(name = "comment")
-public class Comment {
+@Entity
+@Table(name = "size")
+public class Size {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
-    private User user;
-    @ManyToOne
     private Shoes shoes;
-    private String comment;
-    private LocalDateTime time;
+    private int size;
+    private int qty;
 }

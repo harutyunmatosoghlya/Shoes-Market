@@ -3,9 +3,9 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <changeSet id="001_create_comment_database" author="mharutyun">
+    <changeSet id="001_create_comment_database" author="henrik srapyan">
         <createTable tableName="comment">
-            <column name="id" autoIncrement="true" type="INT">
+            <column name="id" autoIncrement="true" type="int">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="user_id" type="int">
@@ -15,9 +15,6 @@
                 <constraints nullable="false"/>
             </column>
             <column name="comment" type="text">
-                <constraints nullable="false"/>
-            </column>
-            <column name="type" type="enum('HIDDEN', 'PUBLIC')">
                 <constraints nullable="false"/>
             </column>
             <column name="time" type="datetime">
