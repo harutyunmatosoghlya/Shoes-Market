@@ -14,7 +14,7 @@ public class UserDto {
     private String name;
     private String surname;
     private String email;
+    private String phone;
     private String photo;
-    private String token;
-    private Role role = Role.USER;
+    private Role role;
 }

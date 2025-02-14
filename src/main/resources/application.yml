@@ -16,6 +16,6 @@ logging:
   file:
     name: log\\application.log
 
-jwt:
-  secret: YXNkZmYkIyNzZFNEU0RBQVNERksjQEBkc2ZqZGZrZHNqQEAjZHNmZ2ZnZmdeXiYmWipeJSQkI2RzZHMkIyVzZDQ1MDk5KUkjJCg5V0ZTSUo=
-  expiration: 600000
+user:
+  image:
+    uploadPath: userImage\

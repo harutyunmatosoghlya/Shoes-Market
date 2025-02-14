@@ -17,6 +17,8 @@ public class SaveUserRequest {
     private String surname;
     private String email;
     private String password;
+    private String phone;
     private Gender gender;
+    private String photo;
     private Role role = Role.USER;
 }
