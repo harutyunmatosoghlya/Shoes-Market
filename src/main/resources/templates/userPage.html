@@ -21,6 +21,10 @@
         <td th:text="${user.email}"></td>
     </tr>
     <tr>
+        <th>Phone</th>
+        <td th:text="${user.phone}"></td>
+    </tr>
+    <tr>
         <th>Photo</th>
         <td>
             <img th:if="${user.photo != null}" th:src="@{/getImage(imageName=${user.photo})}" width="100">
