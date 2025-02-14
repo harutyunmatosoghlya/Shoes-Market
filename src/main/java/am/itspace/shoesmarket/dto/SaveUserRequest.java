@@ -8,14 +8,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class SaveUserRequest {
     private String name;
     private String surname;
     private String email;
     private String password;
+    private String phone;
     private Gender gender;
+    private String photo;
     private Role role = Role.USER;
 }
