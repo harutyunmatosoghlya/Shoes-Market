@@ -12,9 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "user")
-
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -28,8 +26,4 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
     private String photo;
-
-    public String setRole() {
-        return null;
-    }
 }
