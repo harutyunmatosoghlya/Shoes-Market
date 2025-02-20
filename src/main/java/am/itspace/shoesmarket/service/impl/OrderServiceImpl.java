@@ -1,12 +1,16 @@
 package am.itspace.shoesmarket.service.impl;
 
 import am.itspace.shoesmarket.dto.OrderDto;
+import am.itspace.shoesmarket.dto.UserDto;
 import am.itspace.shoesmarket.entity.Order;
 import am.itspace.shoesmarket.entity.User;
 import am.itspace.shoesmarket.repository.OrderRepository;
+import am.itspace.shoesmarket.security.CurrentUser;
 import am.itspace.shoesmarket.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
 import java.util.List;
 
@@ -17,7 +21,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
 
     @Override
-    public void addOrder(Order order) {
+    public void CreatOrder(Order order) {
         orderRepository.save(order);
     }
 
@@ -27,7 +31,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDto> findByUser(User user) {
-        return orderRepository.findByUser(user);
+    public void findByUser(CurrentUser currentUser, ModelMap modelMap) {
+        User user = currentUser.getUser();
+        List<OrderDto> orders = orderRepository.findByUser(user);
+        modelMap.put("orders", orders);
     }
 }

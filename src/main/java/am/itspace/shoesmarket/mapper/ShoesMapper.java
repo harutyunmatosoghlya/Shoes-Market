@@ -15,4 +15,6 @@ public interface ShoesMapper {
     List<ShoesDto> tShoesDto(List<Shoes> shoes);
 
     Shoes toEntity(SaveShoesRequest ShoesRequest);
+
+    Shoes toEntity(ShoesDto ShoesDto);
 }

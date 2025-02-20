@@ -1,16 +1,14 @@
 package am.itspace.shoesmarket.service;
 
-import am.itspace.shoesmarket.dto.OrderDto;
 import am.itspace.shoesmarket.entity.Order;
-import am.itspace.shoesmarket.entity.User;
-
-import java.util.List;
+import am.itspace.shoesmarket.security.CurrentUser;
+import org.springframework.ui.ModelMap;
 
 public interface OrderService {
 
-    void addOrder (Order order);
+    void CreatOrder(Order order);
 
     void deleteOrderById(int id);
 
-    List<OrderDto> findByUser(User user);
+    void findByUser(CurrentUser currentUser, ModelMap modelMap);
 }

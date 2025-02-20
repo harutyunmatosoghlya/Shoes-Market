@@ -5,18 +5,18 @@ import am.itspace.shoesmarket.entity.Model;
 import am.itspace.shoesmarket.entity.Shoes;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface ShoesRepository extends JpaRepository<Shoes, Integer> {
 
-    Optional<Shoes> findShoesByModel(Model model);
+    List<Shoes> findShoesByModel(Model model);
 
-    Optional<Shoes> findShoesByCategory(Category category);
+    List<Shoes> findShoesByCategory(Category category);
 
-    Optional<Shoes> findShoesByBrand(String brand);
+    List<Shoes> findShoesByBrand(String brand);
 
-    Optional<Shoes> findShoesByPrice(double price);
+    List<Shoes> findShoesByPrice(double price);
 
-    Optional<Shoes> findShoesByRating(double rating);
+    List<Shoes> findShoesByRating(double rating);
 
 }
