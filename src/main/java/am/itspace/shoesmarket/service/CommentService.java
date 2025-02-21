@@ -6,7 +6,7 @@ import org.springframework.ui.ModelMap;
 
 public interface CommentService {
 
-    void getCommentsByShoes(int id, ModelMap modelmap);
+    void getCommentsByShoesId(int id, ModelMap modelmap);
 
     void getCommentById(int id);
 

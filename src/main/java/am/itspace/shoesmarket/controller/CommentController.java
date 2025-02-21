@@ -16,9 +16,9 @@ public class CommentController {
     private final CommentService commentService;
 
     @GetMapping
-    public String getCommentsByShoes(@RequestParam int id, ModelMap modelmap) {
-        commentService.getCommentsByShoes(id, modelmap);
-        return "comments";
+    public String getCommentsByShoesId(@RequestParam int id, ModelMap modelmap) {
+        commentService.getCommentsByShoesId(id, modelmap);
+        return "/comments";
     }
 
     @GetMapping("/comment/{id}")

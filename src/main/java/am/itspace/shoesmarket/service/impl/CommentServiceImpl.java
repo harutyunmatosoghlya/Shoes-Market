@@ -21,7 +21,7 @@ public class CommentServiceImpl implements CommentService {
     private final CommentMapper commentMapper;
 
     @Override
-    public void getCommentsByShoes(int id, ModelMap modelmap) {
+    public void getCommentsByShoesId(int id, ModelMap modelmap) {
         List<Comment> comments = commentRepository.findByShoesId(id);
         modelmap.put("comments", comments);
     }

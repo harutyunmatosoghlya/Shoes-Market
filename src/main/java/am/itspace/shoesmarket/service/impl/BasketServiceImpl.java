@@ -21,9 +21,8 @@ public class BasketServiceImpl implements BasketService {
 
     @Override
     public void addShoesToBasket(List<Shoes> shoes) {
-        SaveBasketRequest saveBasketRequest = new SaveBasketRequest();
-        saveBasketRequest.setShoes(shoes);
-        Basket basket = basketMapper.toEntity(saveBasketRequest);
+        Basket basket = new Basket();
+        basket.setShoes(shoes);
         basketRepository.save(basket);
     }
 
