@@ -27,7 +27,7 @@ public class ShoesServiceImpl implements ShoesService {
     }
 
     @Override
-    public void allShoes(Pageable pageable) {
+    public void getAllShoes(Pageable pageable) {
         shoesRepository.findAll(pageable);
     }
 
