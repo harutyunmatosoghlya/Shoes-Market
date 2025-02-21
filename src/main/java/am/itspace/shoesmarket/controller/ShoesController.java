@@ -21,9 +21,9 @@ public class ShoesController {
         return "shoes/add";
     }
 
-    @RequestMapping
-    private String getAllShoes(ModelMap modelMap, Pageable pageable) {
-        shoesService.allShoes(pageable);
+    @GetMapping
+    private String getAllShoes(Pageable pageable) {
+        shoesService.getAllShoes(pageable);
         return "redirect:/shoes";
     }
 

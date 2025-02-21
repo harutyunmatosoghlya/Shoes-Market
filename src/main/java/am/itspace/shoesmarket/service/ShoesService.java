@@ -13,7 +13,7 @@ public interface ShoesService {
 
     void CreatShoes(Shoes shoes);
 
-    void allShoes(Pageable pageable);
+    void getAllShoes(Pageable pageable);
 
     void updateShoes(int id, ShoesDto shoesDto);
 
