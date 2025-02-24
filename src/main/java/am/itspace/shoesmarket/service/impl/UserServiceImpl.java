@@ -7,10 +7,9 @@ import am.itspace.shoesmarket.mapper.UserMapper;
 import am.itspace.shoesmarket.repository.UserRepository;
 import am.itspace.shoesmarket.security.CurrentUser;
 import am.itspace.shoesmarket.service.UserService;
+import am.itspace.shoesmarket.util.FileUtil;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,11 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 
 @Slf4j
@@ -34,8 +28,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
-    @Value("${user.image.uploadPath}")
-    private String uploadPath;
+    private final FileUtil fileUtil;
 
     @Override
     public Optional<User> findByEmail(String email) {
@@ -44,22 +37,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String register(SaveUserRequest saveUserRequest, MultipartFile multipartFile) {
-        String fileName;
-        if (!multipartFile.isEmpty()) {
-            fileName = System.currentTimeMillis() + "_" + multipartFile.getOriginalFilename();
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdirs();
-            }
-            File destinationFile = new File(uploadDir, fileName);
-            try (InputStream inputStream = multipartFile.getInputStream()) {
-                Files.copy(inputStream, destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException e) {
-                throw new RuntimeException("Ошибка при сохранении файла", e);
-            }
-
-            saveUserRequest.setPhoto(fileName);
-        }
+        saveUserRequest.setPhoto(fileUtil.fileName(multipartFile));
         if (userRepository.findByEmail(saveUserRequest.getEmail()).isPresent()) {
             return "/login";
         } else {
@@ -69,7 +47,6 @@ public class UserServiceImpl implements UserService {
             return "redirect:/";
         }
     }
-
 
     @Override
     public String login(LoginUserDto loginUserDto) {
@@ -81,7 +58,11 @@ public class UserServiceImpl implements UserService {
             throw new UsernameNotFoundException("Invalid email or password");
         }
         CurrentUser currentUser = new CurrentUser(user.get());
-        Authentication authentication = new UsernamePasswordAuthenticationToken(currentUser, null, currentUser.getAuthorities());
+        Authentication authentication =
+                new UsernamePasswordAuthenticationToken(
+                        currentUser,
+                        null,
+                        currentUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return "redirect:/";
     }
@@ -92,6 +73,50 @@ public class UserServiceImpl implements UserService {
             return "redirect:/login";
         }
         model.addAttribute("user", currentUser.getUser());
-        return "/userPage";
+        return "userPage";
+    }
+
+    @Override
+    public String update(CurrentUser currentUser, SaveUserRequest saveUserRequest, MultipartFile multipartFile) {
+        if (currentUser == null || currentUser.getUser() == null) {
+            return "redirect:/login";
+        }
+        User user = userMapper.toEntity(saveUserRequest);
+        if (!multipartFile.isEmpty()) {
+            user.setPhoto(fileUtil.fileName(multipartFile));
+        } else {
+            user.setPhoto(currentUser.getUser().getPhoto());
+        }
+        if (user.getEmail() == null || user.getEmail().isEmpty()) {
+            user.setEmail(currentUser.getUser().getEmail());
+        }
+        if (user.getPhone() == null || user.getPhone().isEmpty()) {
+            user.setPhone(currentUser.getUser().getPhone());
+        }
+        if (user.getName() == null || user.getName().isEmpty()) {
+            user.setName(currentUser.getUser().getName());
+        }
+        if (user.getSurname() == null || user.getSurname().isEmpty()) {
+            user.setSurname(currentUser.getUser().getSurname());
+        }
+        if (user.getRole() == null) {
+            user.setRole(currentUser.getUser().getRole());
+        }
+        if (user.getGender() == null) {
+            user.setGender(currentUser.getUser().getGender());
+        }
+        user.setPassword(currentUser.getPassword());
+        user.setId(currentUser.getUser().getId());
+        log.info("user {}", user);
+        userRepository.saveAndFlush(user);
+        CurrentUser newCurrentUser = new CurrentUser(user);
+        Authentication authentication =
+                new UsernamePasswordAuthenticationToken(
+                        newCurrentUser,
+                        null,
+                        newCurrentUser.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        log.info("new current user {}", newCurrentUser);
+        return "redirect:/user";
     }
 }

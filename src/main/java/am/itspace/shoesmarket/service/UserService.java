@@ -17,4 +17,6 @@ public interface UserService {
     String login(LoginUserDto loginUserDto);
 
     String userPage(CurrentUser currentUser, ModelMap model);
+
+    String update(CurrentUser currentUser, SaveUserRequest user, MultipartFile multipartFile);
 }
