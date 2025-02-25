@@ -8,11 +8,12 @@ import am.itspace.shoesmarket.mapper.UserMapper;
 import am.itspace.shoesmarket.repository.UserRepository;
 import am.itspace.shoesmarket.security.CurrentUser;
 import am.itspace.shoesmarket.service.UserService;
-import am.itspace.shoesmarket.util.AuthUtil;
 import am.itspace.shoesmarket.util.FileUtil;
-import am.itspace.shoesmarket.util.UserUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,8 +30,6 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final FileUtil fileUtil;
-    private final UserUtil userUtil;
-    private final AuthUtil authUtil;
 
     @Override
     public Optional<User> findByEmail(String email) {
@@ -59,7 +58,7 @@ public class UserServiceImpl implements UserService {
         if (!passwordEncoder.matches(loginUserDto.getPassword(), user.get().getPassword())) {
             throw new UsernameNotFoundException("Invalid email or password");
         }
-        authUtil.authenticate(user.get());
+        authenticate(user.get());
         return "redirect:/";
     }
 
@@ -78,9 +77,9 @@ public class UserServiceImpl implements UserService {
             return "redirect:/login";
         }
         User user = userMapper.toEntity(editUserRequest);
-        userUtil.updateUserFields(user, currentUser, multipartFile);
+        updateUserFields(user, currentUser, multipartFile);
         userRepository.saveAndFlush(user);
-        authUtil.authenticate(user);
+        authenticate(user);
         return "redirect:/user";
     }
 
@@ -91,5 +90,36 @@ public class UserServiceImpl implements UserService {
         }
         model.addAttribute("user", currentUser.getUser());
         return "editUser";
+    }
+
+    private void authenticate(User user) {
+        CurrentUser newCurrentUser = new CurrentUser(user);
+        Authentication authentication =
+                new UsernamePasswordAuthenticationToken(
+                        newCurrentUser,
+                        null,
+                        newCurrentUser.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
+    private void updateUserFields(User user, CurrentUser currentUser, MultipartFile multipartFile) {
+        User current = currentUser.getUser();
+        user.setPhoto(getPhoto(multipartFile, current));
+        user.setEmail(getOrDefault(user.getEmail(), current.getEmail()));
+        user.setPhone(getOrDefault(user.getPhone(), current.getPhone()));
+        user.setName(getOrDefault(user.getName(), current.getName()));
+        user.setSurname(getOrDefault(user.getSurname(), current.getSurname()));
+        user.setRole(getOrDefault(user.getRole(), current.getRole()));
+        user.setGender(getOrDefault(user.getGender(), current.getGender()));
+        user.setPassword(currentUser.getPassword());
+        user.setId(current.getId());
+    }
+
+    private String getPhoto(MultipartFile multipartFile, User current) {
+        return multipartFile.isEmpty() ? current.getPhoto() : fileUtil.fileName(multipartFile);
+    }
+
+    private  <T> T getOrDefault(T value, T defaultValue) {
+        return (value == null || (value instanceof String && ((String) value).isEmpty())) ? defaultValue : value;
     }
 }
