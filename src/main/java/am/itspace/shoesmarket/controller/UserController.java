@@ -1,9 +1,11 @@
 package am.itspace.shoesmarket.controller;
 
+import am.itspace.shoesmarket.dto.EditUserRequest;
 import am.itspace.shoesmarket.dto.LoginUserDto;
 import am.itspace.shoesmarket.dto.SaveUserRequest;
 import am.itspace.shoesmarket.security.CurrentUser;
 import am.itspace.shoesmarket.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,8 +21,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @Slf4j
 @Controller
@@ -29,11 +29,9 @@ public class UserController {
     private final UserService userService;
     @Value("${user.image.uploadPath}")
     private String uploadPath;
-    private Path path = Paths.get("userImage");
 
     @GetMapping("/login")
     public String showLoginPage() {
-        log.info("path {}", path);
         return "login";
     }
 
@@ -43,7 +41,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute SaveUserRequest user, @RequestParam("image") MultipartFile multipartFile) {
+    public String registerUser(@Valid @ModelAttribute SaveUserRequest user, @RequestParam("image") MultipartFile multipartFile) {
         return userService.register(user, multipartFile);
     }
 
@@ -60,5 +58,15 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "file not found: " + imageName);
         }
         return Files.readAllBytes(file.toPath());
+    }
+
+    @GetMapping("/user/edit")
+    public String editUserPage(@AuthenticationPrincipal CurrentUser currentUser, ModelMap model) {
+       return userService.showUpdatePage(currentUser, model);
+    }
+
+    @PostMapping("/user/edit")
+    public String editUser(@AuthenticationPrincipal CurrentUser currentUser, @Valid @ModelAttribute EditUserRequest user, @RequestParam("image") MultipartFile multipartFile) {
+        return userService.update(currentUser, user, multipartFile);
     }
 }

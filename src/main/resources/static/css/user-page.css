@@ -1,0 +1,16 @@
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #f6d365;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right bottom, rgb(101, 219, 246), rgb(0, 80, 255));
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right bottom, rgb(101, 219, 246), rgb(0, 80, 255))
+}
+
+.card {
+    max-width: 700px; /* Увеличивает ширину */
+    width: 100%;
+    transform: scale(1.5); /* Увеличивает карточку на 20% */
+}
