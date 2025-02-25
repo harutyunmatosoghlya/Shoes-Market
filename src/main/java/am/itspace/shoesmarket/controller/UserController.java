@@ -1,5 +1,6 @@
 package am.itspace.shoesmarket.controller;
 
+import am.itspace.shoesmarket.dto.EditUserRequest;
 import am.itspace.shoesmarket.dto.LoginUserDto;
 import am.itspace.shoesmarket.dto.SaveUserRequest;
 import am.itspace.shoesmarket.security.CurrentUser;
@@ -61,15 +62,11 @@ public class UserController {
 
     @GetMapping("/user/edit")
     public String editUserPage(@AuthenticationPrincipal CurrentUser currentUser, ModelMap model) {
-        if (currentUser == null) {
-            return "redirect:/";
-        }
-        model.addAttribute("user", currentUser.getUser());
-        return "editUser";
+       return userService.showUpdatePage(currentUser, model);
     }
 
     @PostMapping("/user/edit")
-    public String editUser(@AuthenticationPrincipal CurrentUser currentUser, @Valid @ModelAttribute SaveUserRequest user, @RequestParam("image") MultipartFile multipartFile) {
+    public String editUser(@AuthenticationPrincipal CurrentUser currentUser, @Valid @ModelAttribute EditUserRequest user, @RequestParam("image") MultipartFile multipartFile) {
         return userService.update(currentUser, user, multipartFile);
     }
 }

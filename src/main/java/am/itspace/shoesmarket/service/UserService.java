@@ -1,5 +1,6 @@
 package am.itspace.shoesmarket.service;
 
+import am.itspace.shoesmarket.dto.EditUserRequest;
 import am.itspace.shoesmarket.dto.LoginUserDto;
 import am.itspace.shoesmarket.dto.SaveUserRequest;
 import am.itspace.shoesmarket.entity.User;
@@ -18,5 +19,7 @@ public interface UserService {
 
     String userPage(CurrentUser currentUser, ModelMap model);
 
-    String update(CurrentUser currentUser, SaveUserRequest user, MultipartFile multipartFile);
+    String update(CurrentUser currentUser, EditUserRequest user, MultipartFile multipartFile);
+
+    String showUpdatePage(CurrentUser currentUser, ModelMap model);
 }

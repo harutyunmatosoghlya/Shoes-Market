@@ -1,5 +1,6 @@
 package am.itspace.shoesmarket.mapper;
 
+import am.itspace.shoesmarket.dto.EditUserRequest;
 import am.itspace.shoesmarket.dto.LoginUserDto;
 import am.itspace.shoesmarket.dto.SaveUserRequest;
 import am.itspace.shoesmarket.dto.UserDto;
@@ -20,4 +21,6 @@ public interface UserMapper {
     User toEntity(LoginUserDto loginUserDto);
 
     LoginUserDto toLoginDto(SaveUserRequest saveUserRequest);
+
+    User toEntity(EditUserRequest editUserRequest);
 }
